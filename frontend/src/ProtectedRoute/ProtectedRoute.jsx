@@ -7,7 +7,7 @@ export default function ProtectedRoute({ children }) {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/"); // Redirect to home if not authenticated
+      navigate("/login"); // Redirect to home if not authenticated
     }
   }, [isAuthenticated, navigate]); // ✅ Now it only runs when `isAuthenticated` changes
 

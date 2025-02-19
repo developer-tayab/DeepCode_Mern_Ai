@@ -4,6 +4,13 @@ import ProfilePage from "./pages/ProfilePage";
 import ServicesPage from "./pages/ServicesPage";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
+import BugsFixerPage from "./pages/BugsFixerPage";
+import CodeTransPage from "./pages/CodeTransPage";
+import EditorPage from "./pages/EditorPage";
+import ResumeAnalysics from "./pages/ResumeAnalysics";
+
 function App() {
   return (
     <>
@@ -19,6 +26,44 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/ai-code-helper"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <BugsFixerPage />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ai-code-runner"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <EditorPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ai-code-translator"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <CodeTransPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ai-interview-prep"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <ResumeAnalysics />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </>
   );

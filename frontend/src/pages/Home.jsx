@@ -1,8 +1,10 @@
 import React from "react";
 import mainImage from "../assets/mainImage.png";
 import { Typewriter } from "react-simple-typewriter";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <div className=" bg-[#000] relative text-white overflow-auto w-full h-[94vh]">
       <div className="container ">
@@ -31,11 +33,21 @@ export default function Home() {
 
           {/* buttons login and  Explore the website  */}
           <div className="flex justify-center items-center gap-5 mt-5">
-            <button className="font-mono z-50  hover:bg-gradient-to-r hover:scale-110 hover:from-[#FF3BFF] border-[2px] border-white shadow-sm transition-all 2s ease-linear  hover:to-[#5C24FF] text-white  py-2 px-4 rounded-full">
+            <button
+              onClick={() => {
+                navigate("/login");
+              }}
+              className="font-mono z-50  hover:bg-gradient-to-r hover:scale-110 hover:from-[#FF3BFF] border-[2px] border-white shadow-sm transition-all 2s ease-linear  hover:to-[#5C24FF] text-white  py-2 px-4 rounded-full"
+            >
               {" "}
               Get Started
             </button>
-            <button className="font-mono z-50 bg-gradient-to-r hover:scale-110 from-[#FF3BFF]  border-[0.6px] border-none hover:shadow-[0_0_10px_white]  shadow-sm transition-all 2s ease-linear  to-[#5C24FF] text-white  py-2 px-4 rounded-full">
+            <button
+              onClick={() => {
+                navigate("/services");
+              }}
+              className="font-mono z-50 bg-gradient-to-r hover:scale-110 from-[#FF3BFF]  border-[0.6px] border-none hover:shadow-[0_0_10px_white]  shadow-sm transition-all 2s ease-linear  to-[#5C24FF] text-white  py-2 px-4 rounded-full"
+            >
               {" "}
               Explore Tools
             </button>
