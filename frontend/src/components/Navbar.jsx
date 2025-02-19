@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { MdDarkMode } from "react-icons/md";
 import { IoLogoLinkedin } from "react-icons/io5";
+import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
+  const location = useLocation();
   return (
     <nav className="w-full h-[46px] flex items-center py-2    text-white  border-b-[0.7px] border-[#6d6a6a] shadow-sm  bg-[#000]">
       <div className="container flex justify-between items-center">
@@ -15,17 +17,31 @@ export default function Navbar() {
         <div>
           <ul className="flex justify-center items-center gap-10 ">
             <Link to={"/"}>
-              <li className="font-poppins font-normal  transition-all 1s linear  hover:border-b-[#D94FD5] py-1 px-1 hover:border-b-[1px] ">
+              <li
+                className={`font-poppins font-normal  transition-all 1s linear  hover:border-b-[#D94FD5] py-1 px-1 hover:border-b-[1px] ${
+                  location.pathname === "/" && "border-b-[1px] border-[#D94FD5]"
+                } `}
+              >
                 Home
               </li>
             </Link>
             <Link to={"/services"}>
-              <li className="font-poppins font-normal  transition-all 1s linear  hover:border-b-[#D94FD5] py-1 px-1 hover:border-b-[1px] ">
+              <li
+                className={`font-poppins font-normal  transition-all 1s linear  hover:border-b-[#D94FD5] py-1 px-1 hover:border-b-[1px]  ${
+                  location.pathname === "/services" &&
+                  "border-b-[1px] border-[#D94FD5]"
+                } `}
+              >
                 Services
               </li>
             </Link>
             <Link to={"/profile"}>
-              <li className="font-poppins font-normal  transition-all 1s linear  hover:border-b-[#D94FD5] py-1 px-1 hover:border-b-[1px] ">
+              <li
+                className={`font-poppins font-normal  transition-all 1s linear  hover:border-b-[#D94FD5] py-1 px-1 hover:border-b-[1px] ${
+                  location.pathname === "/profile" &&
+                  "border-b-[1px] border-[#D94FD5]"
+                } `}
+              >
                 Profile
               </li>
             </Link>
