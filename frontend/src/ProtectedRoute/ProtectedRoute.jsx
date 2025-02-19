@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { contextApi } from "../context/Context";
 export default function ProtectedRoute({ children }) {
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Mock authentication state
+  const { isAuthenticated, setIsAuthenticated } = useContext(contextApi); // Mock authentication state
 
   useEffect(() => {
     if (!isAuthenticated) {

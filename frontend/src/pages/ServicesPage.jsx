@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaCode, FaPlay, FaLanguage, FaClipboardList } from "react-icons/fa";
+import { contextApi } from "../context/Context";
+import { useContext } from "react";
 
 const services = [
   {
@@ -33,13 +35,23 @@ const services = [
 ];
 
 const ServicePage = () => {
+  const { theme } = useContext(contextApi);
+
   return (
-    <div className="h-[94vh] bg-black text-white px-6 py-12 flex flex-col items-center">
+    <div
+      className={`h-[94vh] px-6 py-12 flex flex-col items-center transition-all duration-300 ${
+        theme === "light" ? "bg-white text-black" : "bg-black text-white"
+      }`}
+    >
       {/* Title Section */}
       <h1 className="text-4xl font-bold text-[#FF3BFF] mb-6 text-center">
         AI-Powered Developer Tools
       </h1>
-      <p className="text-[#ECBFBF] text-lg text-center max-w-2xl">
+      <p
+        className={`text-lg text-center max-w-2xl ${
+          theme === "light" ? "text-gray-700" : "text-[#ECBFBF]"
+        }`}
+      >
         Supercharge your development workflow with our AI-driven tools. Optimize
         code, debug instantly, and enhance your programming skills.
       </p>
@@ -49,7 +61,11 @@ const ServicePage = () => {
         {services.map((service, index) => (
           <div
             key={index}
-            className="relative p-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 group"
+            className={`relative p-6 border rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 group ${
+              theme === "light"
+                ? "bg-gray-100 border-gray-300 text-black"
+                : "bg-white/10 backdrop-blur-md border-white/20 text-white"
+            }`}
           >
             <div className="flex items-center gap-4 mb-3">
               {service.icon}
@@ -57,7 +73,13 @@ const ServicePage = () => {
                 {service.title}
               </h2>
             </div>
-            <p className="text-[#ECBFBF] mb-4">{service.description}</p>
+            <p
+              className={`mb-4 ${
+                theme === "light" ? "text-gray-600" : "text-[#ECBFBF]"
+              }`}
+            >
+              {service.description}
+            </p>
             <Link
               to={service.link}
               className="text-[#FF3BFF] hover:underline font-medium flex items-center gap-2"
@@ -70,7 +92,11 @@ const ServicePage = () => {
 
       {/* Footer Section */}
       <div className="mt-16 text-center">
-        <p className="text-[#ECBFBF]">
+        <p
+          className={`${
+            theme === "light" ? "text-gray-600" : "text-[#ECBFBF]"
+          }`}
+        >
           Built for developers, powered by AI. 🚀
         </p>
       </div>

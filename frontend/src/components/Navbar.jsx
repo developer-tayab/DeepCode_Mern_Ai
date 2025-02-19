@@ -1,61 +1,72 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { MdDarkMode } from "react-icons/md";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { IoLogoLinkedin } from "react-icons/io5";
 import { useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { contextApi } from "../context/Context";
 
 export default function Navbar() {
+  const { theme, setTheme } = useContext(contextApi);
   const location = useLocation();
+
   return (
-    <nav className="w-full h-[46px] flex items-center py-2    text-white  border-b-[0.7px] border-[#6d6a6a] shadow-sm  bg-[#000]">
+    <nav
+      className={`w-full h-[46px] flex items-center py-2 border-b-[0.7px] shadow-sm transition-all duration-300 ${
+        theme === "light"
+          ? "bg-white text-black border-gray-300"
+          : "bg-black text-white border-[#6d6a6a]"
+      }`}
+    >
       <div className="container flex justify-between items-center">
-        {/* logo text   */}
+        {/* Logo */}
         <div>
-          <h2 className="text-2xl font-bold font-space-grotesk  ">DeepCode</h2>
+          <h2 className="text-2xl font-bold font-space-grotesk">DeepCode</h2>
         </div>
-        {/* Links pages  */}
+
+        {/* Navigation Links */}
         <div>
-          <ul className="flex justify-center items-center gap-10 ">
-            <Link to={"/"}>
-              <li
-                className={`font-poppins font-normal  transition-all 1s linear  hover:border-b-[#D94FD5] py-1 px-1 hover:border-b-[1px] ${
-                  location.pathname === "/" && "border-b-[1px] border-[#D94FD5]"
-                } `}
-              >
-                Home
-              </li>
-            </Link>
-            <Link to={"/services"}>
-              <li
-                className={`font-poppins font-normal  transition-all 1s linear  hover:border-b-[#D94FD5] py-1 px-1 hover:border-b-[1px]  ${
-                  location.pathname === "/services" &&
-                  "border-b-[1px] border-[#D94FD5]"
-                } `}
-              >
-                Services
-              </li>
-            </Link>
-            <Link to={"/profile"}>
-              <li
-                className={`font-poppins font-normal  transition-all 1s linear  hover:border-b-[#D94FD5] py-1 px-1 hover:border-b-[1px] ${
-                  location.pathname === "/profile" &&
-                  "border-b-[1px] border-[#D94FD5]"
-                } `}
-              >
-                Profile
-              </li>
-            </Link>
+          <ul className="flex justify-center items-center gap-10">
+            {["/", "/services", "/profile"].map((path, index) => (
+              <Link key={index} to={path}>
+                <li
+                  className={`font-poppins font-normal transition-all duration-300 hover:border-b-[#D94FD5] py-1 px-1 hover:border-b-[1px] ${
+                    location.pathname === path &&
+                    "border-b-[1px] border-[#D94FD5]"
+                  }`}
+                >
+                  {path === "/" ? "Home" : path.replace("/", "")}
+                </li>
+              </Link>
+            ))}
           </ul>
         </div>
 
-        {/* dark and light mode & website owner Linkedin Prod¥file Icon  */}
-        <div className="flex items-center justify-center gap-6 ">
-          <span className="cursor-pointer ">
-            <MdDarkMode fontSize={20} />{" "}
-          </span>
+        {/* Theme Toggle & LinkedIn Icon */}
+        <div className="flex items-center justify-center gap-6">
+          {/* Dark/Light Mode Toggle */}
           <span className="cursor-pointer">
-            {" "}
-            <IoLogoLinkedin fontSize={20} />{" "}
+            {theme === "light" ? (
+              <MdDarkMode
+                fontSize={20}
+                onClick={() => setTheme("dark")}
+                className="transition-transform duration-300 hover:scale-110"
+              />
+            ) : (
+              <MdLightMode
+                fontSize={20}
+                onClick={() => setTheme("light")}
+                className="transition-transform duration-300 hover:scale-110"
+              />
+            )}
+          </span>
+
+          {/* LinkedIn Icon */}
+          <span className="cursor-pointer">
+            <IoLogoLinkedin
+              fontSize={20}
+              className="transition-transform duration-300 hover:scale-110"
+            />
           </span>
         </div>
       </div>
