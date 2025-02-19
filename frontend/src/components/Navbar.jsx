@@ -5,7 +5,7 @@ import { IoLogoLinkedin } from "react-icons/io5";
 
 export default function Navbar() {
   return (
-    <nav className="w-full h-[50px] flex items-center   text-white  border-[0.7px] border-[#6d6a6a] shadow-sm  bg-[#000]">
+    <nav className="w-full h-[46px] flex items-center py-2    text-white  border-b-[0.7px] border-[#6d6a6a] shadow-sm  bg-[#000]">
       <div className="container flex justify-between items-center">
         {/* logo text   */}
         <div>
