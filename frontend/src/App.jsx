@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 function App() {
   return (
-    <div className="container">
+    <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -20,7 +20,7 @@ function App() {
           }
         />
       </Routes>
-    </div>
+    </>
   );
 }
 
