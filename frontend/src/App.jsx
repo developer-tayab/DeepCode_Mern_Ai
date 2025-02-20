@@ -9,7 +9,7 @@ import SignUpPage from "./pages/SignUpPage";
 import BugsFixerPage from "./pages/BugsFixerPage";
 import CodeTransPage from "./pages/CodeTransPage";
 import EditorPage from "./pages/EditorPage";
-import ResumeAnalysics from "./pages/ResumeAnalysics";
+import ResumeAnalysis from "./pages/ResumeAnalysis";
 
 function App() {
   return (
@@ -58,7 +58,7 @@ function App() {
           element={
             <ProtectedRoute>
               {" "}
-              <ResumeAnalysics />
+              <ResumeAnalysis />
             </ProtectedRoute>
           }
         />

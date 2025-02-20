@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { contextApi } from "../context/Context";
 
 export default function Home() {
-  const { theme } = useContext(contextApi);
+  const { theme, isAuthenticated } = useContext(contextApi);
   const navigate = useNavigate();
 
   return (
@@ -40,16 +40,17 @@ export default function Home() {
 
           {/* Buttons - Login & Explore */}
           <div className="flex justify-center items-center gap-5 mt-5">
-            <button
-              onClick={() => navigate("/login")}
-              className={`font-mono z-50 hover:bg-gradient-to-r hover:scale-110 hover:from-[#FF3BFF] border-[2px] border-white shadow-sm transition-all duration-500 hover:to-[#5C24FF] text-white py-2 px-4 rounded-full ${
-                theme === "light"
-                  ? "bg-white text-black"
-                  : "bg-black text-white"
-              }`}
-            >
-              Get Started
-            </button>
+            {!isAuthenticated && (
+              <button
+                onClick={() => navigate("/login")}
+                className={`font-mono z-50 hover:bg-gradient-to-r hover:scale-110 hover:from-[#FF3BFF] border-[2px] border-white shadow-sm transition-all duration-500 hover:to-[#5C24FF]  py-2 px-4 rounded-full ${
+                  theme === "light" ? "  text-black" : "bg-black text-white"
+                }`}
+              >
+                Get Started
+              </button>
+            )}
+
             <button
               onClick={() => navigate("/services")}
               className="font-mono z-50 bg-gradient-to-r hover:scale-110 from-[#FF3BFF] border-[0.6px] border-none hover:shadow-[0_0_10px_white] shadow-sm transition-all duration-500 to-[#5C24FF] text-white py-2 px-4 rounded-full"

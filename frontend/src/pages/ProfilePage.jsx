@@ -17,8 +17,9 @@ const ProfilePage = () => {
 
   const handleLogout = () => {
     console.log("User Logged Out");
-    setIsAuthenticated(false);
     navigate("/");
+    setIsAuthenticated(false);
+
     // Implement logout logic (e.g., remove token, redirect to login)
   };
 

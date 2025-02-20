@@ -20,9 +20,11 @@ export default function Navbar() {
     >
       <div className="container flex justify-between items-center">
         {/* Logo */}
-        <div>
-          <h2 className="text-2xl font-bold font-space-grotesk">DeepCode</h2>
-        </div>
+        <Link to={"/"}>
+          <div>
+            <h2 className="text-2xl font-bold font-space-grotesk">DeepCode</h2>
+          </div>
+        </Link>
 
         {/* Navigation Links */}
         <div>
@@ -62,12 +64,14 @@ export default function Navbar() {
           </span>
 
           {/* LinkedIn Icon */}
-          <span className="cursor-pointer">
-            <IoLogoLinkedin
-              fontSize={20}
-              className="transition-transform duration-300 hover:scale-110"
-            />
-          </span>
+          <Link to={"https://www.linkedin.com/in/m-tayaib/"}>
+            <span className="cursor-pointer">
+              <IoLogoLinkedin
+                fontSize={20}
+                className="transition-transform duration-300 hover:scale-110"
+              />
+            </span>
+          </Link>
         </div>
       </div>
     </nav>
