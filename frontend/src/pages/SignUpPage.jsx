@@ -1,21 +1,46 @@
 import { useState, useContext } from "react";
 import { contextApi } from "../context/Context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUpPage = () => {
   const { theme } = useContext(contextApi);
-  const [name, setName] = useState("");
+  const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if passwords match
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    console.log("User Signed Up:", { name, email, password });
+
+    try {
+      // Send POST request to backend with corrected variable name
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/register",
+        {
+          fullname, // ✅ FIXED: Changed from 'name' to 'fullname'
+          email,
+          password,
+        }
+      );
+
+      if (response.status === 201) {
+        // ✅ Status should be 201 (Created)
+        console.log(response.data);
+        alert(response.data.message); // Show success message
+        navigate("/login"); // Redirect user after successful signup
+      }
+    } catch (error) {
+      console.error(error.response?.data?.message || "Registration failed");
+      alert(error.response?.data?.message || "Registration failed");
+    }
   };
 
   return (
@@ -52,8 +77,8 @@ const SignUpPage = () => {
             </label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={fullname}
+              onChange={(e) => setFullName(e.target.value)}
               className={`w-full px-4 py-2 mt-1 rounded-lg border focus:ring-2 focus:outline-none transition-all duration-300 ${
                 theme === "light"
                   ? "bg-white border-gray-300 text-black focus:ring-[#5C24FF]"

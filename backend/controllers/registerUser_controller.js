@@ -13,8 +13,7 @@ const registerUser = async (req, res) => {
     }
 
     // Hash password
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user
     const user = await User.create({ fullname, email, password: hashedPassword });
@@ -23,23 +22,30 @@ const registerUser = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" } // Token expires in 7 days
+      { expiresIn: "7d" }
     );
 
-    // Set cookie
+    // Set HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Secure only in production
+      secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
     return res.status(201).json({
       message: "User created successfully!",
-      user: { id: user._id, fullname: user.fullname, email: user.email, membership: user.membership },
+      user: {
+        id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+        membership: user.membership,
+        date: new Date(user.createdAt).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+        }), // Displays "March 2023"
+      },
       token,
     });
-
   } catch (error) {
     return res.status(500).json({ message: "Server error", error: error.message });
   }
