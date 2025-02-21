@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const User = require("../models/user_model");
+const token = require("../utils/token");
 
 const registerUser = async (req, res) => {
   try {
@@ -19,14 +19,10 @@ const registerUser = async (req, res) => {
     const user = await User.create({ fullname, email, password: hashedPassword });
 
     // Generate JWT token
-    const token = jwt.sign(
-      { id: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+    const jwtToken = token(user._id, user.email);
 
     // Set HTTP-only cookie
-    res.cookie("token", token, {
+    res.cookie("token", jwtToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
@@ -44,7 +40,7 @@ const registerUser = async (req, res) => {
           month: "long",
         }), // Displays "March 2023"
       },
-      token,
+      token: jwtToken,
     });
   } catch (error) {
     return res.status(500).json({ message: "Server error", error: error.message });

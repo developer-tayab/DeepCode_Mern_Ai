@@ -1,15 +1,46 @@
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { contextApi } from "../context/Context";
+import axios from "axios";
 
 const LoginPage = () => {
-  const { theme } = useContext(contextApi);
+  const {
+    theme,
+    setIsAuthenticated,
+    isAuthenticated, // ✅ Fixed the typo
+    setUserInformation,
+  } = useContext(contextApi);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("User Logged In:", { email, password });
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/login",
+        { email, password },
+        { withCredentials: true }
+      );
+
+      if (response.status === 200) {
+        setIsAuthenticated(true);
+        localStorage.setItem("isAuthenticated", "true"); // ✅ Ensure stored value is a string
+        setUserInformation(response.data.user);
+        localStorage.setItem(
+          "userInformation",
+          JSON.stringify(response.data.user)
+        ); // ✅ Store user info
+
+        navigate("/"); // ✅ Navigate only after setting state
+      }
+    } catch (error) {
+      setError(
+        error.response?.data?.message || "Login failed! Please try again."
+      );
+    }
   };
 
   return (
@@ -18,7 +49,6 @@ const LoginPage = () => {
         theme === "light" ? "bg-white" : "bg-black"
       }`}
     >
-      {/* Animated Form Container */}
       <div
         className={`w-full max-w-md p-8 rounded-lg shadow-xl border transition-transform transform hover:scale-105 duration-300 ${
           theme === "light"
@@ -34,8 +64,9 @@ const LoginPage = () => {
           Welcome Back
         </h2>
 
+        {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email Field */}
           <div>
             <label
               className={`block font-medium ${
@@ -57,7 +88,6 @@ const LoginPage = () => {
             />
           </div>
 
-          {/* Password Field */}
           <div>
             <label
               className={`block font-medium ${
@@ -79,7 +109,6 @@ const LoginPage = () => {
             />
           </div>
 
-          {/* Login Button */}
           <button
             type="submit"
             className="w-full py-2 mt-4 font-semibold rounded-lg bg-gradient-to-r from-[#5C24FF] to-[#FF3BFF] text-white shadow-lg hover:opacity-90 transition-all duration-300"
@@ -88,7 +117,6 @@ const LoginPage = () => {
           </button>
         </form>
 
-        {/* Signup Link */}
         <p
           className={`text-center mt-4 ${
             theme === "light" ? "text-gray-700" : "text-[#ECBFBF]"

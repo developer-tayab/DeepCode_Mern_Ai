@@ -6,17 +6,13 @@ import { contextApi } from "../context/Context";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const { theme, setIsAuthenticated } = useContext(contextApi); // Get theme from context
+  const { theme, setIsAuthenticated, userInformation } = useContext(contextApi); // Get theme from context
 
-  const [user] = useState({
-    name: "John Doe",
-    email: "johndoe@example.com",
-    joined: "March 2023",
-    membership: "Premium",
-  });
+  console.log(userInformation);
 
   const handleLogout = () => {
     console.log("User Logged Out");
+    localStorage.clear();
     navigate("/");
     setIsAuthenticated(false);
 
@@ -37,13 +33,13 @@ const ProfilePage = () => {
           }`}
         />
         <div>
-          <h2 className="text-3xl font-semibold">{user.name}</h2>
+          <h2 className="text-3xl font-semibold">{userInformation.name}</h2>
           <p
             className={`${
               theme === "light" ? "text-gray-700" : "text-gray-400"
             }`}
           >
-            {user.email}
+            {userInformation.email}
           </p>
         </div>
       </div>
@@ -67,7 +63,9 @@ const ProfilePage = () => {
             >
               Membership
             </p>
-            <p className="text-lg font-semibold">{user.membership}</p>
+            <p className="text-lg font-semibold">
+              {userInformation.membership}
+            </p>
           </div>
         </div>
 
@@ -88,7 +86,7 @@ const ProfilePage = () => {
             >
               Joined
             </p>
-            <p className="text-lg font-semibold">{user.joined}</p>
+            <p className="text-lg font-semibold">{userInformation.joined}</p>
           </div>
         </div>
 
@@ -109,7 +107,7 @@ const ProfilePage = () => {
             >
               Email
             </p>
-            <p className="text-lg font-semibold">{user.email}</p>
+            <p className="text-lg font-semibold">{userInformation.email}</p>
           </div>
         </div>
       </div>
