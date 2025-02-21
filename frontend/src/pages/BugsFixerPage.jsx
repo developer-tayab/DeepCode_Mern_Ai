@@ -13,9 +13,12 @@ const BugsFixerPage = () => {
   const handleDebug = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/debug", {
-        code,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/services/ai-bugs-fixer",
+        {
+          code,
+        }
+      );
       setDebuggedCode(response.data.fixedCode);
     } catch (error) {
       setDebuggedCode("Error: Debugging failed.");

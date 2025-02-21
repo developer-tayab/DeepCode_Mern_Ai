@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { MdEmail, MdDateRange, MdVerifiedUser } from "react-icons/md";
 import { contextApi } from "../context/Context";
+import axios from "axios";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -10,13 +11,22 @@ const ProfilePage = () => {
 
   console.log(userInformation);
 
-  const handleLogout = () => {
-    console.log("User Logged Out");
-    localStorage.clear();
-    navigate("/");
-    setIsAuthenticated(false);
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/logout",
+        {},
+        { withCredentials: true }
+      );
 
-    // Implement logout logic (e.g., remove token, redirect to login)
+      if (response.status === 200) {
+        localStorage.clear();
+        setIsAuthenticated(false);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("Logout failed:", error.message);
+    }
   };
 
   return (
