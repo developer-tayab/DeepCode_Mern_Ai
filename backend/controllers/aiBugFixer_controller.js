@@ -2,8 +2,6 @@ const aiFixedCode = require("../utils/ai_BugFixer");
 
 const aiBugFixer = async (req, res) => {
   try {
-    console.log("Bug Fixer API route is running!");
-
     // Extract and validate code input
     let { code } = req.body;
     if (!code || typeof code !== "string") {

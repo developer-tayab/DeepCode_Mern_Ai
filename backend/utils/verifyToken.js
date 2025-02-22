@@ -4,8 +4,6 @@ const cookies = require("cookie-parser")
 const verifyToken = (req, res, next) => {
   try {
     const token = req.cookies.token;
-    console.log(token)
-
     if (req.cookies.token) {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = decoded; // Attach the decoded user data to the request object

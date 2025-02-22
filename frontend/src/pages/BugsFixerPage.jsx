@@ -23,7 +23,8 @@ const BugsFixerPage = () => {
     try {
       const response = await axios.post(
         "http://localhost:3000/api/services/ai-bugs-fixer",
-        { code }
+        { code },
+        { withCredentials: true }
       );
 
       if (response.data.fixedCode) {
