@@ -31,7 +31,7 @@ const ProfilePage = () => {
 
   return (
     <div
-      className={`h-[94vh] flex flex-col items-center px-6 py-10 transition-all duration-300 ${
+      className={`h-[94vh] font-poppins flex flex-col items-center px-6 py-10 transition-all duration-300 ${
         theme === "light" ? "bg-gray-100 text-black" : "bg-black text-white"
       }`}
     >
@@ -47,9 +47,9 @@ const ProfilePage = () => {
           <p
             className={`${
               theme === "light" ? "text-gray-700" : "text-gray-400"
-            }`}
+            } text-3xl font-bold  `}
           >
-            {userInformation.email}
+            {userInformation.fullname}
           </p>
         </div>
       </div>
@@ -96,7 +96,7 @@ const ProfilePage = () => {
             >
               Joined
             </p>
-            <p className="text-lg font-semibold">{userInformation.joined}</p>
+            <p className="text-lg font-semibold">{userInformation.date}</p>
           </div>
         </div>
 

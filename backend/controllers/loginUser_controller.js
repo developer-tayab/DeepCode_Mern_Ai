@@ -36,6 +36,7 @@ const loginUser = async (req, res) => {
         email: user.email,
         profilepic: user.profilepic,
         membership: user.membership,
+        date: new Date(user.createdAt).toLocaleDateString(),
       },
     });
   } catch (error) {
