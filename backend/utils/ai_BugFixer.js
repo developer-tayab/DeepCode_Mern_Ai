@@ -8,9 +8,27 @@ const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
 const aiFixedCode = async (code) => {
   try {
-    const prompt = `Explain how ${code} works and Fixes this code with good practice. and make ensure the bugs is fixed completed if bugs is not fixed then you tod me how can i fixes this code but remember you just in response me in fixes code only with comments and  one tings more do not provided me more extra thing like @retun ect i think it is waste of things in response just provided please fix code only code .`;
+    const prompt = `You are an AI code debugger. Your task is to fix the given code while maintaining its original structure and improving its best practices.
+
+Here is the code:
+\`\`\`javascript
+${code}
+\`\`\`
+
+Your response should meet the following requirements:
+1. Return only the fixed code **inside a Markdown code block** (\`\`\`javascript ... \`\`\`).
+2. Add meaningful comments explaining each fix, but **avoid unnecessary explanations** outside the code.
+3. Do not include extra text like "@return," "output," or unnecessary descriptions.
+4. Ensure that all identified bugs are **completely fixed**.
+5. Keep the code readable and **well-formatted**.
+
+Now, fix the code and return only the corrected version inside:
+\`\`\`javascript
+(Fixed code should be here)
+\`\`\`
+`;
     const result = await model.generateContent(prompt);
-    console.log(result.response.text());
+    // console.log(result.response.text());
     return result.response.text();
   } catch (error) {
     return error.message

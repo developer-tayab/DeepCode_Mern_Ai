@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const cookies = require("cookie-parser")
 
 const verifyToken = (req, res, next) => {
   try {
