@@ -12,13 +12,6 @@ const services = [
     icon: <FaCode className="text-[#FF3BFF] text-4xl" />,
   },
   {
-    title: "AI Live Code Runner",
-    description:
-      "Run your code directly in the browser with real-time execution.",
-    link: "/ai-code-runner",
-    icon: <FaPlay className="text-[#5C24FF] text-4xl" />,
-  },
-  {
     title: "AI Code Translator",
     description:
       "Convert code between multiple programming languages seamlessly.",
