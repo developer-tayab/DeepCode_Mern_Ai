@@ -7,9 +7,10 @@ const auth = require("./routes/auth_router");
 const services = require("./routes/services_router")
 
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+connectionDB();
 app.use(cors(
   {
     origin: ["http://localhost:5173"],
@@ -17,17 +18,12 @@ app.use(cors(
     credentials: true,
   }
 ));
-app.use(cookieParser());
-connectionDB();
-
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 })
-
 app.use("/api/auth", auth);
 app.use("/api/services", services)
-
 
 
 module.exports = app
