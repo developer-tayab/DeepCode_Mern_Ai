@@ -5,6 +5,7 @@ const aiCodeTranslator = require("../controllers/aiCodeTranslator_controller")
 
 Router.post("/ai-bugs-fixer", verifyToken, aiBugFixer);
 Router.post("/code-translator", verifyToken, aiCodeTranslator);
+Router.post("/ai-resume-analyzer-preparation", );
 
 
 
